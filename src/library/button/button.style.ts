@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { primary, secondary } from '../../../vars.styles';
+import { bottomTextSpacing, primary, secondary } from '../../../vars.styles';
 
 export const styles = StyleSheet.create({
   default: {
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
   },
   margin: {
-    marginBottom: 16,
+    marginBottom: bottomTextSpacing,
   },
   primary: {
     backgroundColor: primary,

@@ -7,6 +7,8 @@ export enum BodyType {
   LinkSmall = 'LinkSmall',
 }
 
+export type BodyStyleKey = 'normal' | 'bold' | 'small' | 'boldSmall' | 'link' | 'linkSmall';
+
 export interface BodyProps {
   type: BodyType;
   text: string;

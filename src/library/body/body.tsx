@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import { Text } from 'react-native';
-import { BodyProps, BodyType } from './body.type';
+import { BodyProps, BodyStyleKey, BodyType } from './body.type';
 import { styles } from './body.style';
 
 const Body: FC<BodyProps> = ({ type, text, margin, color }) => {
-  let styleKey: 'normal' | 'bold' | 'small' | 'boldSmall' | 'link' | 'linkSmall';
+  let styleKey: BodyStyleKey;
   switch (type) {
     case BodyType.Normal:
       styleKey = 'normal';

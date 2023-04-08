@@ -4,6 +4,7 @@ export enum ButtonType {
   Tertiary = 'Tertiary',
 }
 
+export type ButtonStyleKey = 'primary' | 'secondary' | 'tertiary';
 export interface ButtonProps {
   type: ButtonType;
   text: string;

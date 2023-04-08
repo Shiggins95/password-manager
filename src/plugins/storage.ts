@@ -1,5 +1,10 @@
 import { MMKV } from 'react-native-mmkv';
+import mmkvFlipper from 'rn-mmkv-storage-flipper';
+
 export const storage = new MMKV();
+if (__DEV__) {
+  mmkvFlipper(MMKV);
+}
 
 export const setItem = (key: string, value: string) => {
   storage.set(key, value);

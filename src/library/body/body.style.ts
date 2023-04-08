@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { text } from '../../../vars.styles';
+import { bottomTextSpacing, text } from '../../../vars.styles';
 
 export const styles = StyleSheet.create({
   default: {
@@ -42,6 +42,6 @@ export const styles = StyleSheet.create({
     lineHeight: 24,
   },
   margin: {
-    marginBottom: 16,
+    marginBottom: bottomTextSpacing,
   },
 });
