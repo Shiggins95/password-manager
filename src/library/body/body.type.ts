@@ -1,3 +1,5 @@
+import { StyleProp } from 'react-native';
+
 export enum BodyType {
   Normal = 'Normal',
   Bold = 'Bold',
@@ -14,4 +16,5 @@ export interface BodyProps {
   text: string;
   margin?: boolean;
   color?: string;
+  style?: StyleProp<any>;
 }

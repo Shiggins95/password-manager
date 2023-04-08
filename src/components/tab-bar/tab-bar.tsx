@@ -4,27 +4,34 @@ import { styles } from './tab-bar.style';
 import { TabBarProps } from './tab-bar.type';
 import { authRoutes } from '../../routes/routes';
 import { background, secondary } from '../../../vars.styles';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Body from '../../library/body/body';
 import { BodyType } from '../../library/body/body.type';
+import { Path } from '../../routes/routes.type';
+import Icon from '../../library/icon/icon';
 
 const TabBar: FC<TabBarProps> = ({ state, navigation }) => {
   const icons: { [key: string]: (focused: boolean) => React.ReactNode } = {
     AccountDetailsJourney: (focused: boolean) => (
-      <AntDesign size={24} name="user" color={focused ? secondary : background} />
+      <Icon provider="AntDesign" size={24} name="user" color={focused ? secondary : background} />
     ),
     PasswordsJourney: (focused: boolean) => (
-      <AntDesign size={24} name={focused ? 'unlock' : 'lock'} color={focused ? secondary : background} />
+      <Icon
+        provider="AntDesign"
+        size={24}
+        name={focused ? 'unlock' : 'lock'}
+        color={focused ? secondary : background}
+      />
     ),
     GeneratorJourney: (focused: boolean) => (
-      <Ionicons size={24} name="ios-create-outline" color={focused ? secondary : background} />
+      <Icon provider="Ionicons" size={24} name="ios-create-outline" color={focused ? secondary : background} />
     ),
   };
   const renderItem = (route: any, index: number) => {
     const isFocused = state.index === index;
     const correspondingRoute = authRoutes.find((r) => r.name === route.name);
-
+    if (route.name === Path.OnboardingJourney) {
+      return null;
+    }
     console.log('current route', route.name);
     const onPress = () => {
       const event = navigation.emit({

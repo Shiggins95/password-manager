@@ -11,4 +11,6 @@ export const bottomTextSpacing = 20;
 export const horizontalPadding = 20;
 export const pagePaddingTop = platformConditional(40, 90);
 export const error = 'red';
+export const warning = '#daac72';
+export const success = '#74b775';
 export const background = '#ecf5ff';

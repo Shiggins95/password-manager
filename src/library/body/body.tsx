@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { BodyProps, BodyStyleKey, BodyType } from './body.type';
 import { styles } from './body.style';
 
-const Body: FC<BodyProps> = ({ type, text, margin, color }) => {
+const Body: FC<BodyProps> = ({ type, text, margin, color, style }) => {
   let styleKey: BodyStyleKey;
   switch (type) {
     case BodyType.Normal:
@@ -25,7 +25,7 @@ const Body: FC<BodyProps> = ({ type, text, margin, color }) => {
       styleKey = 'linkSmall';
       break;
   }
-  return <Text style={[styles[styleKey], margin ? styles.margin : null, color ? { color } : null]}>{text}</Text>;
+  return <Text style={[styles[styleKey], margin ? styles.margin : null, color ? { color } : null, style]}>{text}</Text>;
 };
 
 export default Body;
