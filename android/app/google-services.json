@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "788033325893",
+    "project_id": "passwordmanager-86815",
+    "storage_bucket": "passwordmanager-86815.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788033325893:android:307045037fedf4d0974c2c",
+        "android_client_info": {
+          "package_name": "co.uk.stephenhiggins.passwordmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788033325893-qclsg1g94aj7nfhn399q1j7bo2e98a6j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfm0dts5rThRlDLa3VTZpxlg8txtcfIaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788033325893-qclsg1g94aj7nfhn399q1j7bo2e98a6j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "788033325893-n1nam0p5ohnl18kvgogcsd0p0b42f7jp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "co.uk.stephenhiggins.passwordmanager"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

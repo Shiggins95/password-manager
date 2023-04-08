@@ -1,4 +1,4 @@
-package com.passwordmanager;
+package co.uk.stephenhiggins.passwordmanager;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

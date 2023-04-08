@@ -1,3 +1,4 @@
+apply plugin: 'com.google.gms.google-services'
 apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
@@ -93,9 +94,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.passwordmanager"
+    namespace "co.uk.stephenhiggins.passwordmanager"
     defaultConfig {
-        applicationId "com.passwordmanager"
+        applicationId "co.uk.stephenhiggins.passwordmanager"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

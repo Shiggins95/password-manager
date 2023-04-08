@@ -6,6 +6,7 @@ import Button from './src/library/button/button';
 import { ButtonType } from './src/library/button/button.type';
 import { deleteItem, getItem, setItem } from './src/plugins/storage';
 
+
 function App(): JSX.Element {
   const store = () => {
     setItem('test_value', 'this is a test value');

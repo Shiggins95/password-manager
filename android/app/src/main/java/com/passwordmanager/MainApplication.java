@@ -1,4 +1,4 @@
-package com.passwordmanager;
+package co.uk.stephenhiggins.passwordmanager;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
