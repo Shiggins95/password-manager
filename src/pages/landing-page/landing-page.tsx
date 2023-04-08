@@ -6,8 +6,7 @@ import { View } from 'react-native';
 import { styles } from './landing-page.style';
 import Button from '../../library/button/button';
 import { ButtonType } from '../../library/button/button.type';
-import { useAuthStore } from '../../zustand/auth/auth';
-import { AuthState } from '../../zustand/auth/auth.type';
+import { navigate } from '../../navigate';
 
 const LandingPage: FC = () => {
   console.log('Prevent collapse');
@@ -16,7 +15,6 @@ const LandingPage: FC = () => {
   // endregion
 
   // region state variables
-  const { user, setUser } = useAuthStore<AuthState>((state) => state as AuthState);
   // endregion
 
   // region define apis
@@ -28,10 +26,11 @@ const LandingPage: FC = () => {
   // region methods
   const handleSignIn = () => {
     console.log('sign in');
-    setUser(user ? '' : 'hello world');
+    navigate.toSignIn();
   };
   const handleSignUp = () => {
     console.log('sign up');
+    navigate.toSignUp();
   };
   // endregion
 

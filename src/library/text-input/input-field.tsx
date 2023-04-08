@@ -17,6 +17,7 @@ const InputField: FC<TextInputProps> = ({
   errorMessage,
   inputRef,
   margin,
+  secure,
 }) => {
   // region define auth
   // endregion
@@ -42,6 +43,16 @@ const InputField: FC<TextInputProps> = ({
       {!!label && <Body type={BodyType.Small} text={label} color={errorMessage ? error : text} />}
       <TextInput
         ref={inputRef}
+        placeholder={placeholder}
+        value={value}
+        onChangeText={onChange}
+        secureTextEntry={secure}
+        style={[
+          styles.input,
+          focussed ? styles.inputFocussed : null,
+          margin && !errorMessage ? styles.margin : null,
+          errorMessage ? styles.error : null,
+        ]}
         onFocus={() => {
           if (onFocus) {
             onFocus();
@@ -54,15 +65,6 @@ const InputField: FC<TextInputProps> = ({
           }
           setFocussed(false);
         }}
-        placeholder={placeholder}
-        value={value}
-        onChangeText={onChange}
-        style={[
-          styles.input,
-          focussed ? styles.inputFocussed : null,
-          margin && !errorMessage ? styles.margin : null,
-          errorMessage ? styles.error : null,
-        ]}
       />
       {!!errorMessage && <Body type={BodyType.Small} text={errorMessage} color={error} />}
     </View>

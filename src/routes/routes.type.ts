@@ -13,8 +13,10 @@ export interface TabScreenOptions {
 }
 
 export interface StackScreenOptions {
-  title: string;
-  headerShown: boolean;
+  headerTransparent?: boolean;
+  headerShown?: boolean;
+  headerLeft?: FC<any>;
+  title?: string;
 }
 
 export interface Route {
@@ -28,4 +30,5 @@ export interface TabRoute extends Route {
 
 export interface StackRoute extends Route {
   options?: StackScreenOptions;
+  path: Path;
 }

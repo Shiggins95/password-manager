@@ -1,3 +1,5 @@
+import { platformConditional } from './src/helpers/style-helpers';
+
 export const primary = '#415A77';
 export const primary10 = 'rgba(65,90,119,0.1)';
 export const secondary = '#61E294';
@@ -7,5 +9,6 @@ export const text = 'rgba(0,0,0,0.8)';
 export const subtitle = 'rgba(0,0,0,0.4)';
 export const bottomTextSpacing = 20;
 export const horizontalPadding = 20;
+export const pagePaddingTop = platformConditional(60, 110);
 export const error = 'red';
 export const background = '#ecf5ff';

@@ -12,4 +12,5 @@ export interface TextInputProps {
   onFocus?: () => void;
   inputRef?: React.MutableRefObject<TextInput | null>;
   margin?: boolean;
+  secure?: boolean;
 }

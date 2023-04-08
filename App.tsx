@@ -6,23 +6,29 @@ import { background } from './vars.styles';
 import { useAuthStore } from './src/zustand/auth/auth';
 import { AuthState } from './src/zustand/auth/auth.type';
 import { tabRoutes } from './src/routes/routes';
+import { navigationRef } from './src/navigate';
+import auth from '@react-native-firebase/auth';
 
 const Tab = createMaterialBottomTabNavigator();
 
 function App(): JSX.Element {
-  const { user } = useAuthStore<AuthState>((state) => state as AuthState);
-  // const accountIcon = ({ focused }: { focused: boolean }) => {
-  //   return <AntDesign size={24} name="user" color={focused ? subtitle : primary} style={styles.icon} />;
-  // };
-  // const landingIcon = ({ focused }: { focused: boolean }) => {
-  //   return <AntDesign size={24} name="user" color={focused ? subtitle : primary} style={styles.icon} />;
-  // };
+  const { user, setUser } = useAuthStore<AuthState>((state) => state as AuthState);
+  const onAuthStateChanged = (_user: any) => {
+    setUser(_user);
+  };
+
   useEffect(() => {
-    console.log('user change', user);
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return () => subscriber();
+  }, []);
+
+  useEffect(() => {
+    console.log('user ue', JSON.stringify(user));
   }, [user]);
+
   return (
     <View style={styles.defaultPage}>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Tab.Navigator barStyle={[styles.bar, !user ? styles.hidden : null]}>
           {tabRoutes.map((route) => {
             return <Tab.Screen {...route} key={route.name} />;

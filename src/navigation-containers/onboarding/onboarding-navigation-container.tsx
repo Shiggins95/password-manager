@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
 import { onboardingRoutes } from './onboarding-routes';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 const OnboardingNavigationContainer: FC = () => {
   return (
