@@ -1,46 +1,51 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Body from './src/library/body/body';
-import { BodyType } from './src/library/body/body.type';
-import Button from './src/library/button/button';
-import { ButtonType } from './src/library/button/button.type';
-import { deleteItem, getItem, setItem } from './src/plugins/storage';
-import Headline from './src/library/headline/headline';
-import { HeadlineType } from './src/library/headline/headline.type';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { background } from './vars.styles';
+import { useAuthStore } from './src/zustand/auth/auth';
+import { AuthState } from './src/zustand/auth/auth.type';
+import { tabRoutes } from './src/routes/routes';
+
+const Tab = createMaterialBottomTabNavigator();
 
 function App(): JSX.Element {
-  const store = () => {
-    setItem('test_value', 'this is a test value');
-    console.log('stored item');
-  };
-  const get = () => {
-    console.log('get item', getItem('test_value'));
-  };
-  const deleteStorageItem = () => {
-    deleteItem('test_value');
-    console.log('deleted item');
-  };
+  const { user } = useAuthStore<AuthState>((state) => state as AuthState);
+  // const accountIcon = ({ focused }: { focused: boolean }) => {
+  //   return <AntDesign size={24} name="user" color={focused ? subtitle : primary} style={styles.icon} />;
+  // };
+  // const landingIcon = ({ focused }: { focused: boolean }) => {
+  //   return <AntDesign size={24} name="user" color={focused ? subtitle : primary} style={styles.icon} />;
+  // };
+  useEffect(() => {
+    console.log('user change', user);
+  }, [user]);
   return (
-    <View style={styles.page}>
-      <Headline type={HeadlineType.Title} text="Title" />
-      <Headline type={HeadlineType.Subtitle} text="Subtitle" />
-      <Headline type={HeadlineType.Heading} text="Heading" />
-      <Headline type={HeadlineType.Subheading} text="Subheading" />
-      <Body type={BodyType.Normal} text="Hello world Normal" />
-      <Body type={BodyType.Bold} text="Hello world Bold" />
-      <Body type={BodyType.Small} text="Hello world Small" />
-      <Body type={BodyType.BoldSmall} text="Hello world BoldSmall" />
-      <Body type={BodyType.Link} text="Hello world Link" />
-      <Body type={BodyType.LinkSmall} text="Hello world LinkSmall" margin />
-      <Button text="store" type={ButtonType.Primary} onPress={store} margin />
-      <Button text="GET" type={ButtonType.Secondary} onPress={get} margin />
-      <Button text="DELETE" type={ButtonType.Tertiary} onPress={deleteStorageItem} />
+    <View style={styles.defaultPage}>
+      <NavigationContainer>
+        <Tab.Navigator barStyle={[styles.bar, !user ? styles.hidden : null]}>
+          {tabRoutes.map((route) => {
+            return <Tab.Screen {...route} key={route.name} />;
+          })}
+        </Tab.Navigator>
+      </NavigationContainer>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  page: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 20 },
+  defaultPage: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: background,
+  },
+  bar: { height: 50, justifyContent: 'center' },
+  icon: {
+    margin: 0,
+  },
+  hidden: {
+    display: 'none',
+  },
 });
 
 export default App;
