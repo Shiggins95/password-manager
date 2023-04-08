@@ -9,6 +9,6 @@ export const text = 'rgba(0,0,0,0.8)';
 export const subtitle = 'rgba(0,0,0,0.4)';
 export const bottomTextSpacing = 20;
 export const horizontalPadding = 20;
-export const pagePaddingTop = platformConditional(60, 110);
+export const pagePaddingTop = platformConditional(40, 90);
 export const error = 'red';
 export const background = '#ecf5ff';

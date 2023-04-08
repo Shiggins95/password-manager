@@ -1,13 +1,11 @@
 import React, { FC } from 'react';
+import { View } from 'react-native';
 import Page from '../../library/page/page';
 import Headline from '../../library/headline/headline';
 import { HeadlineType } from '../../library/headline/headline.type';
-import { styles } from './account-details.style';
-import { View } from 'react-native';
+import { styles } from './all-passwords.style';
 
-const AccountDetails: FC = () => {
-  console.log('Prevent collapse');
-
+const AllPasswords: FC = () => {
   // region define auth
   // endregion
 
@@ -29,10 +27,10 @@ const AccountDetails: FC = () => {
   return (
     <Page>
       <View style={styles.container}>
-        <Headline type={HeadlineType.Heading} text="Account" />
+        <Headline type={HeadlineType.Heading} text="Passwords" />
       </View>
     </Page>
   );
 };
 
-export default AccountDetails;
+export default AllPasswords;

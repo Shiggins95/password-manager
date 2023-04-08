@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { background } from './vars.styles';
+import { background, primary } from './vars.styles';
 import { useAuthStore } from './src/zustand/auth/auth';
 import { AuthState } from './src/zustand/auth/auth.type';
-import { tabRoutes } from './src/routes/routes';
+import { authRoutes, nonAuthRoutes } from './src/routes/routes';
 import { navigationRef } from './src/navigate';
 import auth from '@react-native-firebase/auth';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import TabBar from './src/components/tab-bar/tab-bar';
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
 function App(): JSX.Element {
   const { user, setUser } = useAuthStore<AuthState>((state) => state as AuthState);
@@ -22,15 +23,13 @@ function App(): JSX.Element {
     return () => subscriber();
   }, []);
 
-  useEffect(() => {
-    console.log('user ue', JSON.stringify(user));
-  }, [user]);
+  const routes = user ? authRoutes : nonAuthRoutes;
 
   return (
     <View style={styles.defaultPage}>
       <NavigationContainer ref={navigationRef}>
-        <Tab.Navigator barStyle={[styles.bar, !user ? styles.hidden : null]}>
-          {tabRoutes.map((route) => {
+        <Tab.Navigator tabBar={(props: any) => <TabBar {...props} />}>
+          {routes.map((route) => {
             return <Tab.Screen {...route} key={route.name} />;
           })}
         </Tab.Navigator>
@@ -45,7 +44,11 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: background,
   },
-  bar: { height: 50, justifyContent: 'center' },
+  bar: {
+    height: 50,
+    justifyContent: 'center',
+    backgroundColor: primary,
+  },
   icon: {
     margin: 0,
   },

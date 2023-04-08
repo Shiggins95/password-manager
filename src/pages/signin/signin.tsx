@@ -16,10 +16,9 @@ const SignIn: FC = () => {
   // endregion
 
   // region state variables
-  const { user, setUser } = useAuthStore((state) => state as AuthState);
+  const { setUser } = useAuthStore((state) => state as AuthState);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  console.log('user', JSON.stringify(user));
   // endregion
 
   // region define apis

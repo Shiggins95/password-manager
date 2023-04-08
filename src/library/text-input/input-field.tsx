@@ -65,6 +65,11 @@ const InputField: FC<TextInputProps> = ({
           }
           setFocussed(false);
         }}
+        onSubmitEditing={() => {
+          if (onSubmit) {
+            onSubmit();
+          }
+        }}
       />
       {!!errorMessage && <Body type={BodyType.Small} text={errorMessage} color={error} />}
     </View>

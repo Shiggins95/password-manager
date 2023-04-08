@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
+import { View } from 'react-native';
+import { styles } from './password-generator.style';
 import Page from '../../library/page/page';
 import Headline from '../../library/headline/headline';
 import { HeadlineType } from '../../library/headline/headline.type';
-import { styles } from './account-details.style';
-import { View } from 'react-native';
 
-const AccountDetails: FC = () => {
+const PasswordGenerator: FC = () => {
   console.log('Prevent collapse');
 
   // region define auth
@@ -29,10 +29,10 @@ const AccountDetails: FC = () => {
   return (
     <Page>
       <View style={styles.container}>
-        <Headline type={HeadlineType.Heading} text="Account" />
+        <Headline type={HeadlineType.Heading} text="Password generator" />
       </View>
     </Page>
   );
 };
 
-export default AccountDetails;
+export default PasswordGenerator;

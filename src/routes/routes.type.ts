@@ -1,16 +1,18 @@
-import * as React from 'react';
 import { FC } from 'react';
 export enum Path {
   OnboardingJourney = 'OnboardingJourney',
+  PasswordsJourney = 'PasswordsJourney',
+  GeneratorJourney = 'GeneratorJourney',
+  AccountDetailsJourney = 'AccountDetailsJourney',
   LandingPage = 'LandingPage',
   SignIn = 'SignIn',
   SignUp = 'SignUp',
+  AllPasswords = 'AllPasswords',
+  PasswordGenerator = 'PasswordGenerator',
   AccountDetails = 'AccountDetails',
 }
 
-export interface TabScreenOptions {
-  tabBarIcon?: ({ focused }: { focused: boolean }) => React.ReactNode;
-}
+export interface TabScreenOptions {}
 
 export interface StackScreenOptions {
   headerTransparent?: boolean;
@@ -31,4 +33,6 @@ export interface TabRoute extends Route {
 export interface StackRoute extends Route {
   options?: StackScreenOptions;
   path: Path;
+  testId?: string;
+  label?: string;
 }
