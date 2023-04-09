@@ -12,6 +12,7 @@ import Body from '../../library/body/body';
 import { BodyType } from '../../library/body/body.type';
 import Snackbar from '../../library/snackbar/snackbar';
 import { SnackbarType } from '../../library/snackbar/snackbar.type';
+import { decryptList } from '../../plugins/crypto';
 
 const AllPasswords: FC = () => {
   // region state variables
@@ -36,10 +37,15 @@ const AllPasswords: FC = () => {
 
   // region useEffects
   useEffect(() => {
-    const subscriber = passwordRealtimeUpdates(user?.uid as string, (data) => setPasswords(data.passwords));
+    const subscriber = passwordRealtimeUpdates(user?.uid as string, async (data) => {
+      const decrypted = await decryptList(data?.passwords || []);
+      setPasswords(decrypted);
+    });
 
     getPasswords(user?.uid as string).then((res) => {
-      setPasswords(res?.passwords || []);
+      decryptList(res?.passwords || []).then((data) => {
+        setPasswords(data);
+      });
     });
 
     return () => subscriber();

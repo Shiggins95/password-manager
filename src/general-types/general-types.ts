@@ -4,6 +4,7 @@ export enum FirebaseCollections {
 
 export interface Password {
   password: string;
+  iv: string;
 }
 
 export interface PasswordList {

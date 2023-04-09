@@ -1,5 +1,7 @@
 import Aes from 'react-native-aes-crypto';
 import DeviceInfo from 'react-native-device-info';
+import { Password, StorageKey } from '../general-types/general-types';
+import { getItem } from './storage';
 
 export const generateSalt = async () => {
   return Aes.randomKey(16);
@@ -29,4 +31,17 @@ export const decryptData = async ({ cipher, iv }: { cipher: string; iv: string }
   } catch (e) {
     return { error: e, data: '' };
   }
+};
+
+export const decryptList = async (passwords: Password[]) => {
+  const decryptedList = [];
+  for (let i = 0; i < passwords.length; i++) {
+    const { password, iv } = passwords[i];
+    const { data } = await decryptData({ cipher: password, iv }, getItem(StorageKey.Key) as string);
+    decryptedList.push({
+      password: data,
+      iv,
+    });
+  }
+  return decryptedList;
 };

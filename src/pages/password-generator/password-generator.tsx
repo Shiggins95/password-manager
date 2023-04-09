@@ -20,6 +20,9 @@ import { ToggleRowProps } from './password-generator.type';
 import { useAuthStore } from '../../zustand/auth/auth';
 import { AuthState } from '../../zustand/auth/auth.type';
 import { getPasswords, savePasswords } from '../../plugins/firestore';
+import { encryptData } from '../../plugins/crypto';
+import { getItem } from '../../plugins/storage';
+import { StorageKey } from '../../general-types/general-types';
 
 const ToggleRow: FC<ToggleRowProps> = ({ first, text, last, value, onChange }) => {
   return (
@@ -59,10 +62,11 @@ const PasswordGenerator: FC = () => {
   };
   const handleSave = async () => {
     let passwords = await getPasswords(user?.uid as string);
+    const { cipher, iv } = await encryptData(password, getItem(StorageKey.Key) as string);
     if (!passwords) {
-      passwords = { passwords: [{ password }] };
+      passwords = { passwords: [{ password: cipher, iv }] };
     } else {
-      passwords.passwords.push({ password });
+      passwords.passwords.push({ password: cipher, iv });
     }
     const savedPasswords = await savePasswords(user?.uid as string, passwords);
     setSaved(savedPasswords);
