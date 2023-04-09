@@ -17,9 +17,9 @@ import Toggle from '../../library/toggle/toggle';
 import Button from '../../library/button/button';
 import { ButtonType } from '../../library/button/button.type';
 import { ToggleRowProps } from './password-generator.type';
-import firestore from '@react-native-firebase/firestore';
 import { useAuthStore } from '../../zustand/auth/auth';
 import { AuthState } from '../../zustand/auth/auth.type';
+import { getPasswords, savePasswords } from '../../plugins/firestore';
 
 const ToggleRow: FC<ToggleRowProps> = ({ first, text, last, value, onChange }) => {
   return (
@@ -46,6 +46,7 @@ const PasswordGenerator: FC = () => {
     }),
   );
   const [copied, setCopied] = useState(false);
+  const [saved, setSaved] = useState<boolean>();
   // endregion
 
   // region methods
@@ -57,12 +58,14 @@ const PasswordGenerator: FC = () => {
     setCopied(true);
   };
   const handleSave = async () => {
-    try {
-      await firestore().collection('passwords').doc(user?.uid).set({ password });
-    } catch (e) {
-      console.log('error', e);
+    let passwords = await getPasswords(user?.uid as string);
+    if (!passwords) {
+      passwords = { passwords: [{ password }] };
+    } else {
+      passwords.passwords.push({ password });
     }
-    console.log('saved');
+    const savedPasswords = await savePasswords(user?.uid as string, passwords);
+    setSaved(savedPasswords);
   };
   // endregion
 
@@ -81,6 +84,12 @@ const PasswordGenerator: FC = () => {
   return (
     <Page>
       {copied && <Snackbar text="Copied to clipboard!" type={SnackbarType.Success} callback={() => setCopied(false)} />}
+      {saved === true && (
+        <Snackbar text="Password saved!" type={SnackbarType.Success} callback={() => setSaved(undefined)} />
+      )}
+      {saved === false && (
+        <Snackbar text="Something went wrong!" type={SnackbarType.Error} callback={() => setSaved(undefined)} />
+      )}
       <View style={styles.container}>
         <Headline type={HeadlineType.Heading} text="Password generator" />
         <View style={styles.passwordOutputContainer}>
