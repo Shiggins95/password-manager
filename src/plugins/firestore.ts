@@ -19,3 +19,12 @@ export const savePasswords = async (userId: string, data: PasswordList) => {
     return false;
   }
 };
+
+export const passwordRealtimeUpdates = (userId: string, callback: (passwords: PasswordList) => void) => {
+  return firestore()
+    .collection(FirebaseCollections.Passwords)
+    .doc(userId)
+    .onSnapshot((documentSnapshot) => {
+      callback(documentSnapshot.data() as PasswordList);
+    });
+};
