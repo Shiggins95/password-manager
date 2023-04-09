@@ -1,0 +1,32 @@
+import Aes from 'react-native-aes-crypto';
+import DeviceInfo from 'react-native-device-info';
+
+export const generateSalt = async () => {
+  return Aes.randomKey(16);
+};
+
+export const generateKey = async (password: string) => {
+  const cost = 5000;
+  const length = 256;
+  const salt = DeviceInfo.getBundleId();
+  return Aes.pbkdf2(password, salt, cost, length);
+};
+
+export const encryptData = async (data: string, key: string) => {
+  try {
+    const iv = await generateSalt();
+    const cipher = await Aes.encrypt(data, key, iv, 'aes-256-cbc');
+    return { cipher, iv };
+  } catch (e) {
+    return { error: e, cipher: '', iv: '' };
+  }
+};
+
+export const decryptData = async ({ cipher, iv }: { cipher: string; iv: string }, key: string) => {
+  try {
+    const decrypted = await Aes.decrypt(cipher, key, iv, 'aes-256-cbc');
+    return { data: decrypted };
+  } catch (e) {
+    return { error: e, data: '' };
+  }
+};

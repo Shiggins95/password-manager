@@ -15,10 +15,10 @@ const Tab = createBottomTabNavigator();
 function App(): JSX.Element {
   const { user, setUser, setUserId } = useAuthStore<AuthState>((state) => state as AuthState);
   const onAuthStateChanged = (_user: any) => {
-    console.log('_user', JSON.stringify(_user));
-    console.log('_userId', JSON.stringify(_user.uid));
     setUser(_user);
-    setUserId(_user.uid as string);
+    if (_user) {
+      setUserId(_user.uid as string);
+    }
   };
 
   useEffect(() => {

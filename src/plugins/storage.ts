@@ -1,19 +1,19 @@
 import { MMKV } from 'react-native-mmkv';
-import mmkvFlipper from 'rn-mmkv-storage-flipper';
+import { StorageKey } from '../general-types/general-types';
 
-export const storage = new MMKV();
-if (__DEV__) {
-  mmkvFlipper(MMKV);
-}
+export const storage = new MMKV({
+  id: 'passwordmanager',
+  encryptionKey: 'co.uk.stephenhiggins.passwordmanager',
+});
 
-export const setItem = (key: string, value: string) => {
+export const setItem = (key: StorageKey, value: string) => {
   storage.set(key, value);
 };
 
-export const getItem = (key: string) => {
+export const getItem = (key: StorageKey) => {
   return storage.getString(key);
 };
 
-export const deleteItem = (key: string) => {
+export const deleteItem = (key: StorageKey) => {
   storage.delete(key);
 };

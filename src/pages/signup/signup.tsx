@@ -10,6 +10,9 @@ import { ButtonType } from '../../library/button/button.type';
 import auth from '@react-native-firebase/auth';
 import { useAuthStore } from '../../zustand/auth/auth';
 import { AuthState } from '../../zustand/auth/auth.type';
+import { generateKey } from '../../plugins/crypto';
+import { setItem } from '../../plugins/storage';
+import { StorageKey } from '../../general-types/general-types';
 
 const Signup: FC = () => {
   // region define auth
@@ -29,8 +32,11 @@ const Signup: FC = () => {
 
   // region methods
   const handleSignUp = async () => {
+    // set encryption key in local storage
+    const key = await generateKey(password);
+    setItem(StorageKey.Key, key);
     const response = await auth().createUserWithEmailAndPassword(email, password);
-    setUser(response);
+    setUser(response.user);
   };
   // endregion
 

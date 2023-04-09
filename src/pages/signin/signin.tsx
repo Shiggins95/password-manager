@@ -7,34 +7,27 @@ import { styles } from './signin.style';
 import InputField from '../../library/text-input/input-field';
 import Button from '../../library/button/button';
 import { ButtonType } from '../../library/button/button.type';
-import auth from '@react-native-firebase/auth';
 import { useAuthStore } from '../../zustand/auth/auth';
 import { AuthState } from '../../zustand/auth/auth.type';
+import { generateKey } from '../../plugins/crypto';
+import { setItem } from '../../plugins/storage';
+import auth from '@react-native-firebase/auth';
+import { StorageKey } from '../../general-types/general-types';
 
 const SignIn: FC = () => {
-  // region define auth
-  // endregion
-
   // region state variables
   const { setUser } = useAuthStore((state) => state as AuthState);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // endregion
 
-  // region define apis
-  // endregion
-
-  // region define httpOperationReducers
-  // endregion
-
   // region methods
   const handleSignIn = async () => {
+    const key = await generateKey(password);
+    setItem(StorageKey.Key, key);
     const response = await auth().signInWithEmailAndPassword(email, password);
-    setUser(response);
+    setUser(response.user);
   };
-  // endregion
-
-  // region useEffects
   // endregion
 
   return (

@@ -9,3 +9,7 @@ export interface Password {
 export interface PasswordList {
   passwords: Password[];
 }
+
+export enum StorageKey {
+  Key = 'key',
+}
