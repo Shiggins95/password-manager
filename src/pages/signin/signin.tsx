@@ -29,7 +29,6 @@ const SignIn: FC = () => {
 
   // region methods
   const handleSignIn = async () => {
-    console.log('signing in');
     const response = await auth().signInWithEmailAndPassword(email, password);
     setUser(response);
   };

@@ -1,6 +1,9 @@
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import User = FirebaseAuthTypes.User;
 
 export interface AuthState {
-  user?: FirebaseAuthTypes.UserCredential;
-  setUser: (user: FirebaseAuthTypes.UserCredential) => void;
+  user?: User;
+  setUser: (user: FirebaseAuthTypes.User) => void;
+  setUserId: (userId: string) => void;
+  userId: string;
 }

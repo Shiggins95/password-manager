@@ -9,8 +9,6 @@ import { ButtonType } from '../../library/button/button.type';
 import { navigate } from '../../navigate';
 
 const LandingPage: FC = () => {
-  console.log('Prevent collapse');
-
   // region define auth
   // endregion
 
@@ -38,7 +36,7 @@ const LandingPage: FC = () => {
   // endregion
 
   return (
-    <Page>
+    <Page type="safe">
       <View style={styles.container}>
         <Headline type={HeadlineType.Title} text="Manage your passwords" />
         <View>

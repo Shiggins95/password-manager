@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import { styles } from './password-generator.style';
 import Page from '../../library/page/page';
@@ -8,53 +8,74 @@ import Body from '../../library/body/body';
 import { BodyType } from '../../library/body/body.type';
 import { getRandomString } from '../../helpers/random';
 import Icon from '../../library/icon/icon';
-import { primary } from '../../../vars.styles';
+import { primary, primary20, secondary } from '../../../vars.styles';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Snackbar from '../../library/snackbar/snackbar';
 import { SnackbarType } from '../../library/snackbar/snackbar.type';
 import Slider from '@react-native-community/slider';
+import Toggle from '../../library/toggle/toggle';
+import Button from '../../library/button/button';
+import { ButtonType } from '../../library/button/button.type';
+import { ToggleRowProps } from './password-generator.type';
+import firestore from '@react-native-firebase/firestore';
+import { useAuthStore } from '../../zustand/auth/auth';
+import { AuthState } from '../../zustand/auth/auth.type';
+
+const ToggleRow: FC<ToggleRowProps> = ({ first, text, last, value, onChange }) => {
+  return (
+    <View style={[styles.toggleSection, first ? styles.first : null, last ? styles.last : null]}>
+      <Body type={BodyType.Normal} text={text} />
+      <Toggle value={value} handleChange={onChange} />
+    </View>
+  );
+};
 
 const PasswordGenerator: FC = () => {
-  // region define auth
-  // endregion
-
   // region state variables
-  const [passwordLength, setPasswordLength] = useState(20);
+  const { user } = useAuthStore((state) => state as AuthState);
+  const [passwordLength, setPasswordLength] = useState(25);
+  const [includeUpperCase, setIncludeUpperCase] = useState(true);
+  const [includeSpecialChars, setIncludeSpecialCharacters] = useState(false);
+  const [includeNumbers, setIncludeNumbers] = useState(false);
   const [password, setPassword] = useState(
     getRandomString({
-      includeUpperCase: true,
-      includeSpecialChars: false,
-      includeNumbers: true,
-      length: 20,
+      includeUpperCase,
+      includeSpecialChars,
+      includeNumbers,
+      length: passwordLength,
     }),
   );
   const [copied, setCopied] = useState(false);
   // endregion
 
-  // region define apis
-  // endregion
-
-  // region define httpOperationReducers
-  // endregion
-
   // region methods
   const handleSliderChange = (value: number) => {
-    const newPassword = getRandomString({
-      length: value,
-      includeSpecialChars: false,
-      includeUpperCase: true,
-      includeNumbers: true,
-    });
     setPasswordLength(value);
-    setPassword(newPassword);
   };
   const copyToClipboard = () => {
     Clipboard.setString(password);
     setCopied(true);
   };
+  const handleSave = async () => {
+    try {
+      await firestore().collection('passwords').doc(user?.uid).set({ password });
+    } catch (e) {
+      console.log('error', e);
+    }
+    console.log('saved');
+  };
   // endregion
 
   // region useEffects
+  useEffect(() => {
+    const newPassword = getRandomString({
+      length: passwordLength,
+      includeSpecialChars,
+      includeUpperCase,
+      includeNumbers,
+    });
+    setPassword(newPassword);
+  }, [includeNumbers, includeUpperCase, includeSpecialChars, passwordLength]);
   // endregion
 
   return (
@@ -62,24 +83,48 @@ const PasswordGenerator: FC = () => {
       {copied && <Snackbar text="Copied to clipboard!" type={SnackbarType.Success} callback={() => setCopied(false)} />}
       <View style={styles.container}>
         <Headline type={HeadlineType.Heading} text="Password generator" />
-        <View style={styles.lengthContainer}>
-          <Body type={BodyType.Bold} text="Length" />
-          <Body type={BodyType.Normal} text={passwordLength.toString()} style={styles.length} />
-        </View>
-        <Slider
-          step={1}
-          style={styles.slider}
-          minimumValue={0}
-          maximumValue={40}
-          value={passwordLength}
-          onValueChange={handleSliderChange}
-        />
         <View style={styles.passwordOutputContainer}>
           <Body type={BodyType.Normal} text={password} style={styles.passwordOutput} />
           <TouchableOpacity style={styles.copyToClipboard} onPress={copyToClipboard}>
             <Icon name="copy" provider="Feather" color={primary} size={24} />
           </TouchableOpacity>
         </View>
+        <View style={styles.sliderContainer}>
+          <Slider
+            step={1}
+            style={styles.slider}
+            minimumValue={10}
+            maximumValue={40}
+            value={passwordLength}
+            onValueChange={handleSliderChange}
+            thumbTintColor={primary}
+            maximumTrackTintColor={primary20}
+            minimumTrackTintColor={secondary}
+            tapToSeek
+          />
+          <View style={styles.labelsContainer}>
+            <Body type={BodyType.Small} text="10" margin />
+            <Body type={BodyType.Bold} text={passwordLength.toString()} margin color={secondary} />
+            <Body type={BodyType.Small} text="40" margin />
+          </View>
+        </View>
+        <ToggleRow
+          onChange={() => setIncludeUpperCase((prevState) => !prevState)}
+          value={includeUpperCase}
+          text="Include uppercase letters"
+        />
+        <ToggleRow
+          onChange={() => setIncludeSpecialCharacters((prevState) => !prevState)}
+          value={includeSpecialChars}
+          text="Include special character"
+        />
+        <ToggleRow
+          onChange={() => setIncludeNumbers((prevState) => !prevState)}
+          value={includeNumbers}
+          text="Include numbers"
+          last
+        />
+        <Button type={ButtonType.Primary} text="Save password" onPress={handleSave} />
       </View>
     </Page>
   );

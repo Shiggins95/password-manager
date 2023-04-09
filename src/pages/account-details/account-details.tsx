@@ -4,6 +4,9 @@ import Headline from '../../library/headline/headline';
 import { HeadlineType } from '../../library/headline/headline.type';
 import { styles } from './account-details.style';
 import { View } from 'react-native';
+import Button from '../../library/button/button';
+import { ButtonType } from '../../library/button/button.type';
+import auth from '@react-native-firebase/auth';
 
 const AccountDetails: FC = () => {
   console.log('Prevent collapse');
@@ -20,7 +23,10 @@ const AccountDetails: FC = () => {
   // region define httpOperationReducers
   // endregion
 
-  // region methods
+  // region method
+  const handleSignOut = async () => {
+    await auth().signOut();
+  };
   // endregion
 
   // region useEffects
@@ -30,6 +36,7 @@ const AccountDetails: FC = () => {
     <Page>
       <View style={styles.container}>
         <Headline type={HeadlineType.Heading} text="Account" />
+        <Button type={ButtonType.Primary} text="Sign out" onPress={handleSignOut} />
       </View>
     </Page>
   );

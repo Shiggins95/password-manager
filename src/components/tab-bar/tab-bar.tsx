@@ -8,8 +8,14 @@ import Body from '../../library/body/body';
 import { BodyType } from '../../library/body/body.type';
 import { Path } from '../../routes/routes.type';
 import Icon from '../../library/icon/icon';
+import { useAuthStore } from '../../zustand/auth/auth';
+import { AuthState } from '../../zustand/auth/auth.type';
 
 const TabBar: FC<TabBarProps> = ({ state, navigation }) => {
+  const { user } = useAuthStore((s) => s as AuthState);
+  if (!user) {
+    return null;
+  }
   const icons: { [key: string]: (focused: boolean) => React.ReactNode } = {
     AccountDetailsJourney: (focused: boolean) => (
       <Icon provider="AntDesign" size={24} name="user" color={focused ? secondary : background} />
