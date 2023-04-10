@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { horizontalPadding, pagePaddingTop, primary20, secondary } from '../../../vars.styles';
+import { horizontalPadding, pagePaddingTop, primary10, primary20, secondary } from '../../../vars.styles';
 
 export const styles = StyleSheet.create({
   container: {
@@ -37,6 +37,8 @@ export const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: primary10,
   },
   left: {
     flex: 1,
