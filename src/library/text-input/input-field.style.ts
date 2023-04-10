@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
   },
   input: {
     width: '100%',
-    height: 46,
+    height: 48,
     borderColor: 'transparent',
     backgroundColor: primary10,
     color: text,

@@ -41,16 +41,12 @@ export const decryptData = async ({ cipher, iv }: { cipher: string; iv: string }
 export const decryptList = async (passwords: Password[]) => {
   const decryptedList = [];
   for (let i = 0; i < passwords.length; i++) {
-    const { password, iv, username, website, id } = passwords[i];
-    console.log(`before decrypr ${website}`, password);
+    const { password, iv } = passwords[i];
     const { data } = await decryptData({ cipher: password, iv }, getItem(StorageKey.Key) as string);
-    console.log(`data ${website}`, data);
     decryptedList.push({
+      ...passwords[i],
       password: data,
       iv,
-      username,
-      website,
-      id,
     });
   }
   return decryptedList;

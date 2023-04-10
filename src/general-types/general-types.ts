@@ -7,7 +7,8 @@ export interface Password {
   password: string;
   iv: string;
   website: string;
-  username: string;
+  username?: string;
+  email?: string;
 }
 
 export interface PasswordList {

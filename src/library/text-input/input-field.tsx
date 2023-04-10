@@ -3,7 +3,7 @@ import { TextInput, View } from 'react-native';
 import { TextInputProps } from './input-field.type';
 import Body from '../body/body';
 import { BodyType } from '../body/body.type';
-import { error, text } from '../../../vars.styles';
+import { error, primary50, text } from '../../../vars.styles';
 import { styles } from './input-field.style';
 
 const InputField: FC<TextInputProps> = ({
@@ -43,6 +43,7 @@ const InputField: FC<TextInputProps> = ({
     <View style={styles.inputContainer}>
       {!!label && <Body type={BodyType.Small} text={label} color={errorMessage ? error : text} />}
       <TextInput
+        placeholderTextColor={primary50}
         editable={!disabled}
         ref={inputRef}
         placeholder={placeholder}

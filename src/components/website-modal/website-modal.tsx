@@ -14,14 +14,18 @@ import { getItem } from '../../plugins/storage';
 import { useAuthStore } from '../../zustand/auth/auth';
 import { AuthState } from '../../zustand/auth/auth.type';
 import { StorageKey } from '../../general-types/general-types';
+import Dropdown from '../../library/dropdown/dropdown';
 
 const WebsiteModal: FC<WebsiteModalProps> = ({ handleClose, password }) => {
   // region state variables
   const { user } = useAuthStore((state) => state as AuthState);
-  const usernameRef = useRef<TextInput | null>(null);
+  const emailRef = useRef<TextInput | null>(null);
   const websiteRef = useRef<TextInput | null>(null);
+  const usernameRef = useRef<TextInput | null>(null);
   const [website, setWebsite] = useState('');
   const [websiteError, setWebsiteError] = useState('');
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [username, setUsername] = useState('');
   const [usernameError, setUsernameError] = useState('');
   // endregion
@@ -34,16 +38,18 @@ const WebsiteModal: FC<WebsiteModalProps> = ({ handleClose, password }) => {
 
   // region methods
   const dismissKeyboard = () => {
-    usernameRef.current?.blur();
+    emailRef.current?.blur();
     websiteRef.current?.blur();
+    usernameRef.current?.blur();
   };
   const savePassword = async () => {
-    if (!website || !username) {
+    if (!website || (!email && !username)) {
       if (!website) {
         setWebsiteError('Website is required.');
       }
-      if (!username) {
-        setUsernameError('Username is required.');
+      if (!email || !username) {
+        setEmailError('Username or email is required');
+        setUsernameError('Username or email is required');
       }
       return;
     }
@@ -51,9 +57,9 @@ const WebsiteModal: FC<WebsiteModalProps> = ({ handleClose, password }) => {
     const { cipher, iv } = await encryptData(password, getItem(StorageKey.Key) as string);
     const id = await generateUuid();
     if (!passwords) {
-      passwords = { passwords: [{ id, password: cipher, iv, username, website }] };
+      passwords = { passwords: [{ id, password: cipher, iv, email, username, website }] };
     } else {
-      passwords.passwords.push({ id, password: cipher, iv, username, website });
+      passwords.passwords.push({ id, password: cipher, iv, email, username, website });
     }
     const savedPasswords = await savePasswords(user?.uid as string, passwords);
     handleClose(savedPasswords);
@@ -63,8 +69,25 @@ const WebsiteModal: FC<WebsiteModalProps> = ({ handleClose, password }) => {
   // region useEffects
   // endregion
 
+  const emails = [
+    { label: 'email@email.com', value: 'email@email.com' },
+    { label: 'email1@email.com', value: 'email1@email.com' },
+    { label: 'email2@email.com', value: 'email3@email.com' },
+    { label: 'email3@email.com', value: 'email3@email.com' },
+    { label: 'email4@email.com', value: 'email4@email.com' },
+    { label: 'email5@email.com', value: 'email5@email.com' },
+    { label: 'email6@email.com', value: 'email6@email.com' },
+    { label: 'email7@email.com', value: 'email7@email.com' },
+    { label: 'email8@email.com', value: 'email8@email.com' },
+    { label: 'email9@email.com', value: 'email9@email.com' },
+    { label: 'email10@email.com', value: 'email10@email.com' },
+    { label: 'email11@email.com', value: 'email11@email.com' },
+    { label: 'email12@email.com', value: 'email12@email.com' },
+    { label: 'email13@email.com', value: 'email13@email.com' },
+  ];
+
   return (
-    <Modal>
+    <Modal handleClose={() => handleClose()}>
       <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View style={styles.container}>
           <Headline type={HeadlineType.Subheading} text="Enter account details" />
@@ -80,11 +103,21 @@ const WebsiteModal: FC<WebsiteModalProps> = ({ handleClose, password }) => {
           <InputField
             onChange={(value) => setUsername(value)}
             value={username}
-            placeholder="Enter email / username"
+            placeholder="Enter username"
             margin
-            label="Email / Username"
+            label="Username"
             inputRef={usernameRef}
             errorMessage={usernameError}
+          />
+          <Dropdown
+            options={emails}
+            label="Email"
+            handleChange={(value) => setEmail(value)}
+            value={email}
+            placeholder="Enter email address"
+            errorMessage={emailError}
+            contentTitle="Select email address"
+            cleanup={dismissKeyboard}
           />
           <InputField
             disabled
