@@ -17,12 +17,7 @@ import Toggle from '../../library/toggle/toggle';
 import Button from '../../library/button/button';
 import { ButtonType } from '../../library/button/button.type';
 import { ToggleRowProps } from './password-generator.type';
-import { useAuthStore } from '../../zustand/auth/auth';
-import { AuthState } from '../../zustand/auth/auth.type';
-import { getPasswords, savePasswords } from '../../plugins/firestore';
-import { encryptData } from '../../plugins/crypto';
-import { getItem } from '../../plugins/storage';
-import { StorageKey } from '../../general-types/general-types';
+import WebsiteModal from '../../components/website-modal/website-modal';
 
 const ToggleRow: FC<ToggleRowProps> = ({ first, text, last, value, onChange }) => {
   return (
@@ -35,7 +30,6 @@ const ToggleRow: FC<ToggleRowProps> = ({ first, text, last, value, onChange }) =
 
 const PasswordGenerator: FC = () => {
   // region state variables
-  const { user } = useAuthStore((state) => state as AuthState);
   const [passwordLength, setPasswordLength] = useState(25);
   const [includeUpperCase, setIncludeUpperCase] = useState(true);
   const [includeSpecialChars, setIncludeSpecialCharacters] = useState(false);
@@ -50,6 +44,7 @@ const PasswordGenerator: FC = () => {
   );
   const [copied, setCopied] = useState(false);
   const [saved, setSaved] = useState<boolean>();
+  const [showModal, setShowModal] = useState(false);
   // endregion
 
   // region methods
@@ -60,16 +55,22 @@ const PasswordGenerator: FC = () => {
     Clipboard.setString(password);
     setCopied(true);
   };
-  const handleSave = async () => {
-    let passwords = await getPasswords(user?.uid as string);
-    const { cipher, iv } = await encryptData(password, getItem(StorageKey.Key) as string);
-    if (!passwords) {
-      passwords = { passwords: [{ password: cipher, iv }] };
-    } else {
-      passwords.passwords.push({ password: cipher, iv });
+  const handleSave = () => {
+    setShowModal(true);
+  };
+  const handleCloseModal = (saved?: boolean) => {
+    if (saved === true) {
+      setSaved(true);
+      setPassword(
+        getRandomString({
+          length: passwordLength,
+          includeSpecialChars,
+          includeUpperCase,
+          includeNumbers,
+        }),
+      );
     }
-    const savedPasswords = await savePasswords(user?.uid as string, passwords);
-    setSaved(savedPasswords);
+    setShowModal(false);
   };
   // endregion
 
@@ -87,6 +88,7 @@ const PasswordGenerator: FC = () => {
 
   return (
     <Page>
+      {showModal && <WebsiteModal password={password} handleClose={handleCloseModal} />}
       {copied && <Snackbar text="Copied to clipboard!" type={SnackbarType.Success} callback={() => setCopied(false)} />}
       {saved === true && (
         <Snackbar text="Password saved!" type={SnackbarType.Success} callback={() => setSaved(undefined)} />
@@ -137,7 +139,7 @@ const PasswordGenerator: FC = () => {
           text="Include numbers"
           last
         />
-        <Button type={ButtonType.Primary} text="Save password" onPress={handleSave} />
+        <Button type={ButtonType.Primary} text="Add password" onPress={handleSave} />
       </View>
     </Page>
   );

@@ -7,6 +7,10 @@ export const generateSalt = async () => {
   return Aes.randomKey(16);
 };
 
+export const generateUuid = async () => {
+  return Aes.randomKey(32);
+};
+
 export const generateKey = async (password: string) => {
   const cost = 5000;
   const length = 256;
@@ -27,6 +31,7 @@ export const encryptData = async (data: string, key: string) => {
 export const decryptData = async ({ cipher, iv }: { cipher: string; iv: string }, key: string) => {
   try {
     const decrypted = await Aes.decrypt(cipher, key, iv, 'aes-256-cbc');
+    console.log(`decrypted ${cipher}`, decrypted);
     return { data: decrypted };
   } catch (e) {
     return { error: e, data: '' };
@@ -36,11 +41,16 @@ export const decryptData = async ({ cipher, iv }: { cipher: string; iv: string }
 export const decryptList = async (passwords: Password[]) => {
   const decryptedList = [];
   for (let i = 0; i < passwords.length; i++) {
-    const { password, iv } = passwords[i];
+    const { password, iv, username, website, id } = passwords[i];
+    console.log(`before decrypr ${website}`, password);
     const { data } = await decryptData({ cipher: password, iv }, getItem(StorageKey.Key) as string);
+    console.log(`data ${website}`, data);
     decryptedList.push({
       password: data,
       iv,
+      username,
+      website,
+      id,
     });
   }
   return decryptedList;

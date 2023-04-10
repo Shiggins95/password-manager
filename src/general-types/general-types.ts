@@ -3,8 +3,11 @@ export enum FirebaseCollections {
 }
 
 export interface Password {
+  id: string;
   password: string;
   iv: string;
+  website: string;
+  username: string;
 }
 
 export interface PasswordList {

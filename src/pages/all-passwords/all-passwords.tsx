@@ -28,8 +28,8 @@ const AllPasswords: FC = () => {
   // endregion
 
   // region methods
-  const deletePassword = async (index: number) => {
-    const newPasswords = passwords.filter((p, i) => index !== i);
+  const deletePassword = async (id: string) => {
+    const newPasswords = passwords.filter((p) => p.id !== id);
     const success = await savePasswords(user?.uid as string, { passwords: newPasswords });
     setDeleted(success);
   };
@@ -39,6 +39,7 @@ const AllPasswords: FC = () => {
   useEffect(() => {
     const subscriber = passwordRealtimeUpdates(user?.uid as string, async (data) => {
       const decrypted = await decryptList(data?.passwords || []);
+      console.log({ decrypted });
       setPasswords(decrypted);
     });
 
@@ -62,9 +63,9 @@ const AllPasswords: FC = () => {
       )}
       <View style={styles.container}>
         <Headline type={HeadlineType.Heading} text="Passwords" />
-        {passwords.map(({ password }, index) => {
+        {passwords.map(({ password, iv, id }) => {
           return (
-            <TouchableOpacity onPress={() => deletePassword(index)}>
+            <TouchableOpacity key={iv} onPress={() => deletePassword(id)}>
               <Body type={BodyType.Normal} text={password} />
             </TouchableOpacity>
           );

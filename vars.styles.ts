@@ -1,6 +1,6 @@
 import { platformConditional } from './src/helpers/style-helpers';
 
-export const primary = '#415A77';
+export const primary = '#424577';
 export const primary10 = 'rgba(65,90,119,0.1)';
 export const primary20 = 'rgba(65,90,119,0.2)';
 export const secondary = '#61E294';
@@ -15,3 +15,4 @@ export const error = 'red';
 export const warning = '#daac72';
 export const success = '#74b775';
 export const background = '#ecf5ff';
+export const modalBackdrop = 'rgba(0,0,0,0.4)';

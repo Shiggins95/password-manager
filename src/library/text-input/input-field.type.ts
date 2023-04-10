@@ -13,4 +13,5 @@ export interface TextInputProps {
   inputRef?: React.MutableRefObject<TextInput | null>;
   margin?: boolean;
   secure?: boolean;
+  disabled?: boolean;
 }

@@ -18,6 +18,7 @@ const InputField: FC<TextInputProps> = ({
   inputRef,
   margin,
   secure,
+  disabled,
 }) => {
   // region define auth
   // endregion
@@ -42,6 +43,7 @@ const InputField: FC<TextInputProps> = ({
     <View style={styles.inputContainer}>
       {!!label && <Body type={BodyType.Small} text={label} color={errorMessage ? error : text} />}
       <TextInput
+        editable={!disabled}
         ref={inputRef}
         placeholder={placeholder}
         value={value}
