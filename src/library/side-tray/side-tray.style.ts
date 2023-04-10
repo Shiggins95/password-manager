@@ -11,7 +11,6 @@ export const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: background,
     paddingTop: pagePaddingTop,
-    paddingHorizontal: 20,
   },
   left: {
     borderRightWidth: 2,

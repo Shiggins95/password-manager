@@ -8,6 +8,15 @@ export class EmailApi {
     this.userId = userId;
   }
 
+  async getEmails() {
+    try {
+      const emailsRequest = await firestore().collection(FirebaseCollections.Emails).doc(this.userId).get();
+      const { emails } = emailsRequest?.data() || { emails: [] };
+      return { success: true, data: emails };
+    } catch (e) {
+      return { success: false, data: [] };
+    }
+  }
   async createEmail(newEmail: Email, allEmails: Email[]) {
     const correspondingEmail = allEmails.find((e) => e.email === newEmail.email);
     if (correspondingEmail) {

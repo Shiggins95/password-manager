@@ -20,6 +20,7 @@ const AccountDetailsLink: FC<AccountDetailsLinkProps> = ({ label, link }) => {
   return (
     <TouchableOpacity style={[styles.link]} onPress={handlePress}>
       <Body type={BodyType.Normal} text={label} />
+      <Icon name="chevron-thin-right" provider="Entypo" size={24} color={secondary} />
     </TouchableOpacity>
   );
 };

@@ -24,7 +24,7 @@ export const styles = StyleSheet.create({
     borderColor: primary20,
     borderTopWidth: 2,
     borderBottomWidth: 2,
-    paddingVertical: 20,
+    padding: horizontalPadding,
   },
   bottom: {
     marginTop: -10,
@@ -41,7 +41,9 @@ export const styles = StyleSheet.create({
   },
   link: {
     paddingVertical: 20,
-    borderBottomWidth: 2,
-    borderColor: primary20,
+    borderBottomWidth: 1,
+    borderColor: primary10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import Headline from '../../library/headline/headline';
 import { HeadlineType } from '../../library/headline/headline.type';
 import InputField from '../../library/text-input/input-field';
@@ -8,13 +8,15 @@ import { styles } from './website-modal.style';
 import { WebsiteModalProps } from './website-modal.type';
 import Button from '../../library/button/button';
 import { ButtonType } from '../../library/button/button.type';
-import { getPasswords, savePasswords } from '../../plugins/firestore';
+import { emailRealtimeUpdates, getPasswords, savePasswords } from '../../plugins/firestore';
 import { encryptData, generateUuid } from '../../plugins/crypto';
 import { getItem } from '../../plugins/storage';
 import { useAuthStore } from '../../zustand/auth/auth';
 import { AuthState } from '../../zustand/auth/auth.type';
 import { StorageKey } from '../../general-types/general-types';
 import Dropdown from '../../library/dropdown/dropdown';
+import { EmailApi } from '../../api/email-api';
+import { Email } from '../../api/email-api.type';
 
 const WebsiteModal: FC<WebsiteModalProps> = ({ handleClose, password }) => {
   // region state variables
@@ -28,9 +30,13 @@ const WebsiteModal: FC<WebsiteModalProps> = ({ handleClose, password }) => {
   const [emailError, setEmailError] = useState('');
   const [username, setUsername] = useState('');
   const [usernameError, setUsernameError] = useState('');
+  const [emails, setEmails] = useState<Email[]>([]);
   // endregion
 
   // region define apis
+  const emailApi = new EmailApi({
+    userId: user?.uid as string,
+  });
   // endregion
 
   // region define httpOperationReducers
@@ -67,24 +73,18 @@ const WebsiteModal: FC<WebsiteModalProps> = ({ handleClose, password }) => {
   // endregion
 
   // region useEffects
+  useEffect(() => {
+    const subscriber = emailRealtimeUpdates(user?.uid as string, (_emails) => {
+      setEmails(_emails?.emails || []);
+    });
+    emailApi.getEmails().then((res) => {
+      if (res.success) {
+        setEmails(res?.data || []);
+      }
+    });
+    return () => subscriber();
+  }, []);
   // endregion
-
-  const emails = [
-    { label: 'email@email.com', value: 'email@email.com' },
-    { label: 'email1@email.com', value: 'email1@email.com' },
-    { label: 'email2@email.com', value: 'email3@email.com' },
-    { label: 'email3@email.com', value: 'email3@email.com' },
-    { label: 'email4@email.com', value: 'email4@email.com' },
-    { label: 'email5@email.com', value: 'email5@email.com' },
-    { label: 'email6@email.com', value: 'email6@email.com' },
-    { label: 'email7@email.com', value: 'email7@email.com' },
-    { label: 'email8@email.com', value: 'email8@email.com' },
-    { label: 'email9@email.com', value: 'email9@email.com' },
-    { label: 'email10@email.com', value: 'email10@email.com' },
-    { label: 'email11@email.com', value: 'email11@email.com' },
-    { label: 'email12@email.com', value: 'email12@email.com' },
-    { label: 'email13@email.com', value: 'email13@email.com' },
-  ];
 
   return (
     <Modal handleClose={() => handleClose()}>
@@ -110,7 +110,7 @@ const WebsiteModal: FC<WebsiteModalProps> = ({ handleClose, password }) => {
             errorMessage={usernameError}
           />
           <Dropdown
-            options={emails}
+            options={emails.map((e) => ({ label: e.email, value: e.email }))}
             label="Email"
             handleChange={(value) => setEmail(value)}
             value={email}

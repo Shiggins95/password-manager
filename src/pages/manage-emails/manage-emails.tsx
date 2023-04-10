@@ -4,7 +4,7 @@ import Headline from '../../library/headline/headline';
 import { HeadlineType } from '../../library/headline/headline.type';
 import { TouchableOpacity, View } from 'react-native';
 import { styles } from './manage-emails.style';
-import { emailRealtimeUpdates, getEmails } from '../../plugins/firestore';
+import { emailRealtimeUpdates } from '../../plugins/firestore';
 import { useAuthStore } from '../../zustand/auth/auth';
 import { AuthState } from '../../zustand/auth/auth.type';
 import { useNavigation } from '@react-navigation/native';
@@ -124,8 +124,10 @@ const ManageEmails: FC = () => {
     const subscriber = emailRealtimeUpdates(user?.uid as string, (_emails) => {
       setEmails(_emails?.emails || []);
     });
-    getEmails(user?.uid as string).then((res) => {
-      setEmails(res?.emails || []);
+    api.getEmails().then((res) => {
+      if (res.success) {
+        setEmails(res.data);
+      }
     });
     navigation.setOptions({
       headerRight: () => <AddButton handlePress={() => setShowAddModal(true)} />,
