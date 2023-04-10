@@ -14,4 +14,5 @@ export interface TextInputProps {
   margin?: boolean;
   secure?: boolean;
   disabled?: boolean;
+  autoFocus?: boolean;
 }

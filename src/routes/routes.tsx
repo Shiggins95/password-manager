@@ -1,8 +1,8 @@
 import { Path, StackRoute } from './routes.type';
 import OnboardingNavigationContainer from '../navigation-containers/onboarding/onboarding-navigation-container';
 import PasswordsNavigationContainer from '../navigation-containers/passwords/passwords-navigation-container';
-import AccountDetails from '../pages/account-details/account-details';
 import GeneratorNavigationContainer from '../navigation-containers/generator/generator-navigation-container';
+import AccountDetailsNavigationContainer from '../navigation-containers/account/account-details-navigation-container';
 
 export const nonAuthRoutes: StackRoute[] = [
   {
@@ -40,7 +40,7 @@ export const authRoutes: StackRoute[] = [
     name: Path.AccountDetailsJourney,
     path: Path.AccountDetailsJourney,
     testId: 'accountDetailsJourney',
-    component: AccountDetails,
+    component: AccountDetailsNavigationContainer,
     label: 'Account',
     options: {
       headerShown: false,

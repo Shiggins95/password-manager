@@ -8,6 +8,9 @@ export const navigate = {
     navigationRef.setParams(props?.props as never);
     navigationRef.goBack();
   },
+  toLink: (link: Path) => {
+    navigationRef.navigate(link as never);
+  },
   toSignIn: () => {
     navigationRef.navigate(Path.SignIn as never);
   },

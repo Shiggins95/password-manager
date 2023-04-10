@@ -1,9 +1,47 @@
 import { StyleSheet } from 'react-native';
-import { horizontalPadding, pagePaddingTop } from '../../../vars.styles';
+import { background, horizontalPadding, primary, primary10, primary20 } from '../../../vars.styles';
 
 export const styles = StyleSheet.create({
-  container: {
-    paddingTop: pagePaddingTop,
+  top: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
     paddingHorizontal: horizontalPadding,
+    backgroundColor: primary10,
+    paddingBottom: horizontalPadding + 10,
+  },
+  userIcon: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: primary,
+  },
+  container: {
+    paddingHorizontal: horizontalPadding,
+  },
+  signOut: {
+    borderColor: primary20,
+    borderTopWidth: 2,
+    borderBottomWidth: 2,
+    paddingVertical: 20,
+  },
+  bottom: {
+    marginTop: -10,
+    flex: 1,
+    backgroundColor: background,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    paddingHorizontal: horizontalPadding,
+    shadowColor: primary10,
+    shadowOffset: { width: 0, height: -5 },
+    shadowOpacity: 1,
+    shadowRadius: 10,
+    elevation: 10,
+  },
+  link: {
+    paddingVertical: 20,
+    borderBottomWidth: 2,
+    borderColor: primary20,
   },
 });

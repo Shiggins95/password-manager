@@ -1,20 +1,33 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Page from '../../library/page/page';
-import Headline from '../../library/headline/headline';
-import { HeadlineType } from '../../library/headline/headline.type';
 import { styles } from './account-details.style';
-import { View } from 'react-native';
-import Button from '../../library/button/button';
-import { ButtonType } from '../../library/button/button.type';
+import { TouchableOpacity, View } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import Icon from '../../library/icon/icon';
+import { secondary } from '../../../vars.styles';
+import SideTray from '../../library/side-tray/side-tray';
+import Body from '../../library/body/body';
+import { BodyType } from '../../library/body/body.type';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AccountDetailsLinkProps } from './account-details.type';
+import { Path } from '../../routes/routes.type';
+import { navigate } from '../../navigate';
+
+const AccountDetailsLink: FC<AccountDetailsLinkProps> = ({ label, link }) => {
+  const handlePress = () => {
+    navigate.toLink(link);
+  };
+  return (
+    <TouchableOpacity style={[styles.link]} onPress={handlePress}>
+      <Body type={BodyType.Normal} text={label} />
+    </TouchableOpacity>
+  );
+};
 
 const AccountDetails: FC = () => {
-  console.log('Prevent collapse');
-
-  // region define auth
-  // endregion
-
   // region state variables
+  const { top: safeAreaTop } = useSafeAreaInsets();
+  const [showTray, setShowTray] = useState(false);
   // endregion
 
   // region define apis
@@ -34,9 +47,20 @@ const AccountDetails: FC = () => {
 
   return (
     <Page>
-      <View style={styles.container}>
-        <Headline type={HeadlineType.Heading} text="Account" />
-        <Button type={ButtonType.Primary} text="Sign out" onPress={handleSignOut} />
+      {showTray && (
+        <SideTray side="left" handleClose={() => setShowTray(false)}>
+          <TouchableOpacity style={styles.signOut} onPress={handleSignOut}>
+            <Body type={BodyType.Normal} text="Sign out" />
+          </TouchableOpacity>
+        </SideTray>
+      )}
+      <View style={[styles.top, { paddingTop: safeAreaTop + 20 }]}>
+        <TouchableOpacity style={styles.userIcon} onPress={() => setShowTray((prev) => !prev)}>
+          <Icon name="user" provider="AntDesign" color={secondary} size={30} />
+        </TouchableOpacity>
+      </View>
+      <View style={[styles.bottom]}>
+        <AccountDetailsLink link={Path.ManageEmails} label="Manage emails" />
       </View>
     </Page>
   );

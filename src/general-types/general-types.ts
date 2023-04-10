@@ -1,5 +1,6 @@
 export enum FirebaseCollections {
   Passwords = 'passwords',
+  Emails = 'emails',
 }
 
 export interface Password {

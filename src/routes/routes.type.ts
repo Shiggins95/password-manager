@@ -10,6 +10,7 @@ export enum Path {
   AllPasswords = 'AllPasswords',
   PasswordGenerator = 'PasswordGenerator',
   AccountDetails = 'AccountDetails',
+  ManageEmails = 'ManageEmails',
 }
 
 export interface TabScreenOptions {}
@@ -18,6 +19,7 @@ export interface StackScreenOptions {
   headerTransparent?: boolean;
   headerShown?: boolean;
   headerLeft?: FC<any>;
+  headerRight?: FC<any>;
   title?: string;
 }
 

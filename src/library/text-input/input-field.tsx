@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { TextInput, View } from 'react-native';
 import { TextInputProps } from './input-field.type';
 import Body from '../body/body';
@@ -19,6 +19,7 @@ const InputField: FC<TextInputProps> = ({
   margin,
   secure,
   disabled,
+  autoFocus,
 }) => {
   // region define auth
   // endregion
@@ -37,6 +38,12 @@ const InputField: FC<TextInputProps> = ({
   // endregion
 
   // region useEffects
+
+  useEffect(() => {
+    if (autoFocus) {
+      inputRef?.current?.focus();
+    }
+  }, []);
   // endregion
 
   return (
