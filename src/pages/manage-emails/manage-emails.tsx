@@ -71,6 +71,10 @@ const ManageEmails: FC = () => {
 
   // region methods
   const handleModalClose = (createdSuccessfully?: boolean) => {
+    setShowAddModal(false);
+    if (createdSuccessfully === undefined) {
+      return;
+    }
     const settings: EmailSnackbar = {
       show: true,
       type: createdSuccessfully ? SnackbarType.Success : SnackbarType.Error,
@@ -78,7 +82,6 @@ const ManageEmails: FC = () => {
       text: createdSuccessfully ? 'Email added!' : 'Failed to add email',
     };
     setSnackbarSettings(settings);
-    setShowAddModal(false);
   };
   const handleUpdate = async (id: string) => {
     const correspondingEmail = emails.find((e) => e.id === id);
@@ -146,7 +149,7 @@ const ManageEmails: FC = () => {
           <View style={styles.confirmModalContent}>
             <Headline type={HeadlineType.Subheading} text="Confirm" />
             <Body type={BodyType.Normal} text="This email is your primary email." />
-            <Body type={BodyType.Normal} text="Are you sure you want to delete it" margin />
+            <Body type={BodyType.Normal} text="Are you sure you want to delete it?" margin />
             <Button
               type={ButtonType.Tertiary}
               text="Yes"

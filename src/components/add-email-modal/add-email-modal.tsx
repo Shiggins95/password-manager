@@ -52,7 +52,7 @@ const AddEmailModal: FC<AddEmailModalProps> = ({ handleClose, allEmails }) => {
   // endregion
 
   return (
-    <Modal handleClose={closeAddEmailModal}>
+    <Modal handleClose={() => closeAddEmailModal()}>
       <TouchableWithoutFeedback onPress={dismissKeyboard}>
         <View>
           <Headline type={HeadlineType.Subheading} text="Create email" />
