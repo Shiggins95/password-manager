@@ -11,6 +11,7 @@ module.exports = {
         'react-hooks/rules-of-hooks': 'off',
         'react-hooks/exhaustive-deps': 'off',
         'prettier/prettier': 'off',
+        'react/no-unstable-nested-components': 'off',
       },
     },
   ],
