@@ -47,7 +47,7 @@ const InputField: FC<TextInputProps> = ({
   // endregion
 
   return (
-    <View style={styles.inputContainer}>
+    <View style={[styles.inputContainer, margin ? styles.margin : null]}>
       {!!label && <Body type={BodyType.Small} text={label} color={errorMessage ? error : text} />}
       <TextInput
         placeholderTextColor={primary50}
@@ -57,12 +57,7 @@ const InputField: FC<TextInputProps> = ({
         value={value}
         onChangeText={onChange}
         secureTextEntry={secure}
-        style={[
-          styles.input,
-          focussed ? styles.inputFocussed : null,
-          margin && !errorMessage ? styles.margin : null,
-          errorMessage ? styles.error : null,
-        ]}
+        style={[styles.input, focussed ? styles.inputFocussed : null, errorMessage ? styles.error : null]}
         onFocus={() => {
           if (onFocus) {
             onFocus();

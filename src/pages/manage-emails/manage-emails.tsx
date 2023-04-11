@@ -32,7 +32,9 @@ const EmailRow: FC<EmailRowProps> = ({ email, handleUpdate, handleDelete }) => {
         </TouchableOpacity>
       </View>
       <View style={styles.center}>
-        <Body type={BodyType.Normal} text={email.email} />
+        <View style={email.primary ? styles.emailSmall : null}>
+          <Body type={BodyType.Normal} text={email.email} truncate />
+        </View>
         {email.primary && (
           <View style={styles.primaryLabel}>
             <Body type={BodyType.BoldSmall} text="Primary" color={primary} />

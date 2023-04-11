@@ -12,6 +12,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { AccountDetailsLinkProps } from './account-details.type';
 import { Path } from '../../routes/routes.type';
 import { navigate } from '../../navigate';
+import Headline from '../../library/headline/headline';
+import { HeadlineType } from '../../library/headline/headline.type';
 
 const AccountDetailsLink: FC<AccountDetailsLinkProps> = ({ label, link }) => {
   const handlePress = () => {
@@ -56,6 +58,7 @@ const AccountDetails: FC = () => {
         </SideTray>
       )}
       <View style={[styles.top, { paddingTop: safeAreaTop + 20 }]}>
+        <Headline type={HeadlineType.Heading} text="Account details" noMargin />
         <TouchableOpacity style={styles.userIcon} onPress={() => setShowTray((prev) => !prev)}>
           <Icon name="user" provider="AntDesign" color={secondary} size={30} />
         </TouchableOpacity>

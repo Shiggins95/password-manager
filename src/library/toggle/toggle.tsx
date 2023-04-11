@@ -19,11 +19,18 @@ const Toggle: FC<ToggleProps> = ({ value, handleChange }) => {
 
   useEffect(() => {
     if (value) {
-      Animated.timing(left, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
+      Animated.sequence([
+        Animated.timing(left, {
+          toValue: -0.2,
+          duration: 100,
+          useNativeDriver: true,
+        }),
+        Animated.timing(left, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]).start();
       const listener = left.addListener((v) => {
         if (v.value >= 0.5) {
           setColor(secondary);
@@ -37,11 +44,18 @@ const Toggle: FC<ToggleProps> = ({ value, handleChange }) => {
 
   useEffect(() => {
     if (!value) {
-      Animated.timing(right, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
+      Animated.sequence([
+        Animated.timing(right, {
+          toValue: -0.18,
+          duration: 100,
+          useNativeDriver: true,
+        }),
+        Animated.timing(right, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]).start();
 
       const listener = right.addListener((v) => {
         if (v.value >= 0.5) {

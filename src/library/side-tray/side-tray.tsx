@@ -16,7 +16,7 @@ const SideTray: FC<SideTrayProps> = ({ side, children, handleClose }) => {
     }).start();
   }, [translateX]);
   return (
-    <Modal visible transparent animationType="fade">
+    <Modal visible transparent>
       <TouchableWithoutFeedback onPress={handleClose}>
         <View style={styles.container}>
           <Animated.View

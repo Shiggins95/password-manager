@@ -7,10 +7,13 @@ export const styles = StyleSheet.create({
     paddingHorizontal: horizontalPadding,
   },
   primaryLabel: {
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingHorizontal: 10,
     paddingVertical: 5,
     backgroundColor: primary20,
     borderRadius: 10,
+    width: '30%',
   },
   primaryButton: {
     height: 30,
@@ -53,6 +56,9 @@ export const styles = StyleSheet.create({
   },
   right: {
     flex: 1,
+  },
+  emailSmall: {
+    width: '70%',
   },
   confirmModalContent: {
     alignItems: 'center',

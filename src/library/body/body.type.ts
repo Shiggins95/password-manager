@@ -17,4 +17,5 @@ export interface BodyProps {
   margin?: boolean;
   color?: string;
   style?: StyleProp<any>;
+  truncate?: boolean;
 }

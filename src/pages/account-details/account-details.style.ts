@@ -4,7 +4,8 @@ import { background, horizontalPadding, primary, primary10, primary20 } from '..
 export const styles = StyleSheet.create({
   top: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     paddingHorizontal: horizontalPadding,
     backgroundColor: primary10,
     paddingBottom: horizontalPadding + 10,
