@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
-import { Animated, TouchableOpacity } from 'react-native';
+import { Animated, TouchableOpacity, Vibration } from 'react-native';
 import { ToggleProps } from './toggle.type';
 import { styles } from './toggle.style';
 import Value = Animated.Value;
@@ -10,6 +10,13 @@ const Toggle: FC<ToggleProps> = ({ value, handleChange }) => {
   const left = new Animated.Value(0);
   const right = new Animated.Value(0);
   const [color, setColor] = useState(value ? secondary : background);
+  // endregion
+
+  // region methods
+  const onPress = () => {
+    Vibration.vibrate(100);
+    handleChange();
+  };
   // endregion
 
   // region useEffects & useMemos
@@ -70,7 +77,7 @@ const Toggle: FC<ToggleProps> = ({ value, handleChange }) => {
   // endregion
 
   return (
-    <TouchableOpacity activeOpacity={1} onPress={handleChange} style={[styles.container, { backgroundColor: color }]}>
+    <TouchableOpacity activeOpacity={1} onPress={onPress} style={[styles.container, { backgroundColor: color }]}>
       <Animated.View
         style={[
           styles.toggle,

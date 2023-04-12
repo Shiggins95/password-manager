@@ -26,11 +26,11 @@ const WebsiteModal: FC<WebsiteModalProps> = ({ handleClose, password }) => {
   const usernameRef = useRef<TextInput | null>(null);
   const [website, setWebsite] = useState('');
   const [websiteError, setWebsiteError] = useState('');
+  const [emails, setEmails] = useState<Email[]>([]);
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [username, setUsername] = useState('');
   const [usernameError, setUsernameError] = useState('');
-  const [emails, setEmails] = useState<Email[]>([]);
   // endregion
 
   // region define apis
@@ -80,6 +80,10 @@ const WebsiteModal: FC<WebsiteModalProps> = ({ handleClose, password }) => {
     emailApi.getEmails().then((res) => {
       if (res.success) {
         setEmails(res?.data || []);
+        const primary = ((res?.data || []) as Email[]).find((e) => e.primary);
+        if (primary) {
+          setEmail(primary.email);
+        }
       }
     });
     return () => subscriber();
