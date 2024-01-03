@@ -5,7 +5,7 @@ import { BodyType } from '../body/body.type';
 import { styles } from './snackbar.style';
 import { SnackbarProps } from './snackbar.type';
 import Icon from '../icon/icon';
-import { error, success, warning } from '../../../vars.styles';
+import { error, success, warning } from '../../../../encropass/vars.styles';
 
 const { height } = Dimensions.get('window');
 

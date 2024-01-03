@@ -3,7 +3,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { styles } from './tab-bar.style';
 import { TabBarProps } from './tab-bar.type';
 import { authRoutes } from '../../routes/routes';
-import { background, secondary } from '../../../vars.styles';
+import { background, secondary } from '../../../../encropass/vars.styles';
 import Body from '../../library/body/body';
 import { BodyType } from '../../library/body/body.type';
 import { Path } from '../../routes/routes.type';

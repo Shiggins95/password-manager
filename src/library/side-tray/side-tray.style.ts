@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { background, modalBackdrop, pagePaddingTop, primary } from '../../../vars.styles';
+import { background, modalBackdrop, pagePaddingTop, primary } from '../../../../encropass/vars.styles';
 
 export const styles = StyleSheet.create({
   container: {

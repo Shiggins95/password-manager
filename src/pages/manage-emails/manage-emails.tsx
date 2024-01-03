@@ -18,7 +18,7 @@ import { BodyType } from '../../library/body/body.type';
 import { EmailRowProps, EmailSnackbar } from './manage-emails.type';
 import { EmailApi } from '../../api/email-api';
 import Icon from '../../library/icon/icon';
-import { error, primary } from '../../../vars.styles';
+import { error, primary } from '../../../../encropass/vars.styles';
 import Modal from '../../library/modal/modal';
 import Button from '../../library/button/button';
 import { ButtonType } from '../../library/button/button.type';
@@ -171,7 +171,7 @@ const ManageEmails: FC = () => {
       <View style={styles.container}>
         <Headline type={HeadlineType.Heading} text="Manage emails" />
         {emails.map((email) => {
-          return <EmailRow email={email} handleUpdate={handleUpdate} handleDelete={handleDelete} />;
+          return <EmailRow key={email.id} email={email} handleUpdate={handleUpdate} handleDelete={handleDelete} />;
         })}
       </View>
     </Page>

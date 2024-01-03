@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { background, primary } from './vars.styles';
+import { background, primary } from '../encropass/vars.styles';
 import { useAuthStore } from './src/zustand/auth/auth';
 import { AuthState } from './src/zustand/auth/auth.type';
 import { authRoutes, nonAuthRoutes } from './src/routes/routes';

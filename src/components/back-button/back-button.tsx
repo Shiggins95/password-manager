@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { secondary } from '../../../vars.styles';
+import { secondary } from '../../../../encropass/vars.styles';
 import { TouchableOpacity } from 'react-native';
 import { navigate } from '../../navigate';
 import Icon from '../../library/icon/icon';

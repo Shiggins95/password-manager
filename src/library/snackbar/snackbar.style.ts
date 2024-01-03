@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { error, horizontalPadding, success, warning } from '../../../vars.styles';
+import { error, horizontalPadding, success, warning } from '../../../../encropass/vars.styles';
 
 export const styles = StyleSheet.create({
   container: {

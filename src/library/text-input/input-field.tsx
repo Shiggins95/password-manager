@@ -3,7 +3,7 @@ import { TextInput, View } from 'react-native';
 import { TextInputProps } from './input-field.type';
 import Body from '../body/body';
 import { BodyType } from '../body/body.type';
-import { error, primary50, text } from '../../../vars.styles';
+import { error, primary50, text } from '../../../../encropass/vars.styles';
 import { styles } from './input-field.style';
 
 const InputField: FC<TextInputProps> = ({

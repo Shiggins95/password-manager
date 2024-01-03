@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { primary, primary20, secondary } from '../../../vars.styles';
+import { primary, primary20, secondary } from '../../../../encropass/vars.styles';
 
 export const styles = StyleSheet.create({
   container: {

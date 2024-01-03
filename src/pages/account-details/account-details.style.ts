@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { background, horizontalPadding, primary, primary10, primary20 } from '../../../vars.styles';
+import { background, horizontalPadding, primary, primary10, primary20 } from '../../../../encropass/vars.styles';
 
 export const styles = StyleSheet.create({
   top: {

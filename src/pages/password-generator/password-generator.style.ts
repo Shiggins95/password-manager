@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { horizontalPadding, pagePaddingTop, primary10 } from '../../../vars.styles';
+import { horizontalPadding, pagePaddingTop, primary10 } from '../../../../encropass/vars.styles';
 
 export const styles = StyleSheet.create({
   container: {

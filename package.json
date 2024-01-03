@@ -6,7 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios --udid=D27D327F-D57A-4209-8701-EB7CFA2FB672",
     "lint": "eslint .",
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
     "test": "jest",
     "pods": "cd ios && pod update && cd .."
   },
@@ -60,7 +60,6 @@
     "react-native-flipper": "^0.189.0",
     "react-native-flipper-zustand": "^2.0.1",
     "react-test-renderer": "18.2.0",
-    "rn-mmkv-storage-flipper": "^1.1.1",
     "ts-jest": "^29.1.0",
     "typescript": "4.8.4"
   },

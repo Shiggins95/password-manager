@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { bottomTextSpacing, error, primary, primary10, text } from '../../../vars.styles';
+import { bottomTextSpacing, error, primary, primary10, text } from '../../../../encropass/vars.styles';
 
 export const styles = StyleSheet.create({
   label: {

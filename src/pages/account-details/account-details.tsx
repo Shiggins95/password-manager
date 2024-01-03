@@ -4,7 +4,7 @@ import { styles } from './account-details.style';
 import { TouchableOpacity, View } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import Icon from '../../library/icon/icon';
-import { secondary } from '../../../vars.styles';
+import { secondary } from '../../../../encropass/vars.styles';
 import SideTray from '../../library/side-tray/side-tray';
 import Body from '../../library/body/body';
 import { BodyType } from '../../library/body/body.type';

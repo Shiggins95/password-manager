@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { TouchableOpacity } from 'react-native';
 import Icon from '../../library/icon/icon';
 import { AddButtonProps } from './add-button.type';
-import { secondary } from '../../../vars.styles';
+import { secondary } from '../../../../encropass/vars.styles';
 
 const AddButton: FC<AddButtonProps> = ({ handlePress }) => {
   return (

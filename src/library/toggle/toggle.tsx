@@ -3,7 +3,7 @@ import { Animated, TouchableOpacity, Vibration } from 'react-native';
 import { ToggleProps } from './toggle.type';
 import { styles } from './toggle.style';
 import Value = Animated.Value;
-import { background, secondary, secondary10 } from '../../../vars.styles';
+import { background, secondary, secondary10 } from '../../../../encropass/vars.styles';
 
 const Toggle: FC<ToggleProps> = ({ value, handleChange }) => {
   // region state variables

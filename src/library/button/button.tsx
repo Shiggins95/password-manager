@@ -4,7 +4,7 @@ import { ButtonProps, ButtonStyleKey, ButtonType } from './button.type';
 import Body from '../body/body';
 import { BodyType } from '../body/body.type';
 import { styles } from './button.style';
-import { primary } from '../../../vars.styles';
+import { primary } from '../../../../encropass/vars.styles';
 
 const Button: FC<ButtonProps> = ({ type, text, onPress, disabled, margin }) => {
   let styleKey: ButtonStyleKey;

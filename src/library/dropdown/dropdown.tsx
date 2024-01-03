@@ -4,7 +4,7 @@ import { DropdownProps } from './dropdown.type';
 import { styles } from './dropdown.style';
 import Body from '../body/body';
 import { BodyType } from '../body/body.type';
-import { error, primary50, text } from '../../../vars.styles';
+import { error, primary50, text } from '../../../../encropass/vars.styles';
 import BottomSheet from '../bottom-sheet/bottom-sheet';
 
 const Dropdown: FC<DropdownProps> = ({

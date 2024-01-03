@@ -8,7 +8,7 @@ import Body from '../../library/body/body';
 import { BodyType } from '../../library/body/body.type';
 import { getRandomString } from '../../helpers/random';
 import Icon from '../../library/icon/icon';
-import { primary, primary20, secondary } from '../../../vars.styles';
+import { primary, primary20, secondary } from '../../../../encropass/vars.styles';
 import Clipboard from '@react-native-clipboard/clipboard';
 import Snackbar from '../../library/snackbar/snackbar';
 import { SnackbarType } from '../../library/snackbar/snackbar.type';
